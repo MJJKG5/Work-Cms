@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 邮件配置 -->
+    <bean name="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <!-- 用户名 -->
+        <property name="username" value="${email.username}"/>
+        <!-- 密码 -->
+        <property name="password" value="${email.password}"/>
+        <!-- 编码 -->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 属性 -->
+        <property name="javaMailProperties">
+            <props>
+                <!-- 协议 -->
+                <prop key="mail.transport.protocol">${mail.transport.protocol}</prop>
+                <!-- 服务器 -->
+                <prop key="mail.smtp.host">${mail.smtp.host}</prop>
+                <!-- 身份验证 -->
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

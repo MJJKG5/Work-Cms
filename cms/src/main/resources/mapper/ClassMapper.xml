@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.cms.repository.ClassMapper">
+    <resultMap id="classMap" type="com.gp.cms.model.Class">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="createTime" property="createTime"/>
+        <result column="departmentId" property="departmentId"/>
+    </resultMap>
+
+    <sql id="classList">id, `name`, createTime, departmentId</sql>
+
+    <select id="queryByList" resultMap="classMap">
+        SELECT
+            <include refid="classList"/>
+        FROM
+            class
+        <where>
+            <if test="null != name and '' != name">
+                name = #{name}
+            </if>
+            <if test="null != departmentId">
+                AND departmentId = #{departmentId}
+            </if>
+        </where>
+        LIMIT
+            #{page.index}, #{page.pageSize}
+    </select>
+
+    <select id="queryByName" resultType="com.gp.cms.model.Class">
+        SELECT
+            <include refid="classList"/>
+        FROM
+            class
+        WHERE
+            `name` = #{name}
+        AND
+            departmentId = #{departmentId}
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO class
+            (`name`, departmentId)
+        VALUES
+            (#{class.name}, #{class.departmentId})
+    </insert>
+
+    <update id="update">
+        UPDATE
+            class
+        <set>
+            <if test="null != class.name and '' != class.name">
+                `name` = #{class.name},
+            </if>
+            <if test="null != class.departmentId">
+                departmentId = #{class.departmentId}
+            </if>
+        </set>
+        WHERE
+            id = #{class.id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM class WHERE id = #{id}
+    </delete>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT
+            COUNT(id)
+        FROM
+            class
+        <where>
+            <if test="null != name and '' != name">
+                name = #{name}
+            </if>
+            <if test="null != departmentId">
+                AND departmentId = #{departmentId}
+            </if>
+        </where>
+    </select>
+</mapper>

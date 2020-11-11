@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.cms.repository.DepartmentMapper">
+    <resultMap id="departmentMap" type="com.gp.cms.model.Department">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+
+    <sql id="departmentList">id, `name`, createTime</sql>
+
+    <select id="queryByList" resultMap="departmentMap">
+        SELECT
+            <include refid="departmentList"/>
+        FROM
+            department
+        <where>
+            <if test="null != name and '' != name">
+                name = #{name}
+            </if>
+        </where>
+        LIMIT
+            #{page.index}, #{page.pageSize}
+    </select>
+
+    <select id="queryByName" resultType="com.gp.cms.model.Department">
+        SELECT
+            <include refid="departmentList"/>
+        FROM
+            department
+        WHERE
+            name = #{name}
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO department
+            (`name`)
+        VALUES
+            (#{department.name})
+    </insert>
+
+    <update id="update">
+        UPDATE department
+        <set>
+            <if test="null != department.name and '' != department.name">
+                name = #{department.name}
+            </if>
+        </set>
+        WHERE
+            id = #{department.id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM department WHERE id = #{id}
+    </delete>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT
+            COUNT(id)
+        FROM
+            department
+        <where>
+            <if test="null != name and '' != name">
+                name = #{name}
+            </if>
+        </where>
+    </select>
+</mapper>

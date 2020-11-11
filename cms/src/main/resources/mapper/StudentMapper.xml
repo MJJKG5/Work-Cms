@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.cms.repository.StudentMapper">
+    <resultMap id="studentMap" type="com.gp.cms.model.Student">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="mobile" property="mobile"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="registerTime" property="registerTime"/>
+        <result column="classId" property="classId"/>
+    </resultMap>
+
+    <sql id="studentList">id, `name`, sex, age, mobile, email, registerTime, classId</sql>
+
+    <select id="queryByList" resultMap="studentMap">
+        SELECT
+            <include refid="studentList"/>
+        FROM
+            student
+        <where>
+            <if test="null != name and '' != name">
+                `name` = #{name}
+            </if>
+            <if test="null != classId">
+                AND classId = #{classId}
+            </if>
+        </where>
+        LIMIT
+            #{page.index}, #{page.pageSize}
+    </select>
+
+    <select id="queryById" resultType="com.gp.cms.model.Student">
+        SELECT
+            id, `name`, sex, age, mobile, email, password, registerTime, classId
+        FROM
+            student
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="queryByEmail" resultType="com.gp.cms.model.Student">
+        SELECT
+            id, `name`, sex, age, mobile, email, password, registerTime, classId
+        FROM
+            student
+        WHERE
+            email = #{email}
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO student
+            (`name`, sex, age, mobile, email, password, classId)
+        VALUES
+            (#{student.name}, #{student.sex}, #{student.age}, #{student.mobile}, #{student.email}, #{student.password}, #{student.classId})
+    </insert>
+
+    <update id="update">
+        UPDATE student
+        <set>
+            <if test="null != student.name and '' != student.name">
+                `name` = #{student.name},
+            </if>
+            <if test="null != student.sex and '' != student.sex">
+                sex = #{student.sex},
+            </if>
+            <if test="null != student.age">
+                age = #{student.age},
+            </if>
+            <if test="null != student.mobile and '' != student.mobile">
+                mobile = #{student.mobile},
+            </if>
+            <if test="null != student.email and '' != student.email">
+                email = #{student.email},
+            </if>
+            <if test="null != student.classId">
+                classId = #{student.classId}
+            </if>
+        </set>
+        WHERE
+            id = #{student.id}
+    </update>
+
+    <update id="updateById">
+        UPDATE
+            student
+        SET
+            password = #{password}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateByEmail">
+        UPDATE
+            student
+        SET
+            password = #{password}
+        WHERE
+            email = #{email}
+    </update>
+
+    <delete id="delete">queryByList
+        DELETE FROM student WHERE id = #{id}
+    </delete>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT
+            COUNT(id)
+        FROM
+            student
+        <where>
+            <if test="null != name and '' != name">
+                `name` = #{name}
+            </if>
+            <if test="null != classId">
+                AND classId = #{classId}
+            </if>
+        </where>
+    </select>
+</mapper>

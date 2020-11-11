@@ -1,0 +1,48 @@
+plugins {
+    id "war"
+}
+
+group = 'com.gp'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+
+    implementation 'org.springframework:spring-web:5.2.9.RELEASE'
+    implementation 'org.springframework:spring-webmvc:5.2.9.RELEASE'
+
+    implementation 'org.springframework:spring-core:5.2.9.RELEASE'
+    implementation 'org.springframework:spring-beans:5.2.9.RELEASE'
+    implementation 'org.springframework:spring-context:5.2.9.RELEASE'
+    implementation 'org.springframework.session:spring-session-core:2.4.0'
+    implementation 'org.springframework:spring-context-support:5.2.9.RELEASE'
+
+    implementation 'org.springframework:spring-tx:5.2.9.RELEASE'
+    implementation 'org.springframework:spring-orm:5.2.9.RELEASE'
+
+    implementation 'org.mybatis:mybatis:3.5.5'
+    implementation 'org.mybatis:mybatis-spring:2.0.5'
+
+    implementation 'com.alibaba:druid:1.1.24'
+    implementation 'mysql:mysql-connector-java:8.0.21'
+
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.11.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.2'
+
+    implementation 'cn.hutool:hutool-all:5.4.4'
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+
+    compile 'org.apache.logging.log4j:log4j-api:2.13.3'
+    compile 'org.apache.logging.log4j:log4j-core:2.13.3'
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.springframework:spring-test:5.2.9.RELEASE'
+}

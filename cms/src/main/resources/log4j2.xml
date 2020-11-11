@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<Configuration status="INFO" monitorInterval="30">
+    <Properties>
+        <!-- 日志文件 -->
+        <Property name="FILE_NAME">/usr/log/cms.log</Property>
+<!--        <Property name="FILE_NAME">/Users/mjj/log/cms.log</Property>-->
+<!--        <Property name="FILE_NAME">D:/log/cms.log</Property>-->
+        <!-- 日志压缩文件 -->
+        <Property name="FILE_PATTERN">/usr/log/cms-%d{yyyy-MM-dd}.log.gz</Property>
+<!--        <Property name="FILE_PATTERN">/Users/mjj/log/cms-%d{yyyy-MM-dd}.log.gz</Property>-->
+<!--        <Property name="FILE_PATTERN">D:/log/cms-%d{yyyy-MM-dd}.log.gz</Property>-->
+        <!-- 日志样式 -->
+        <Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level - %logger{40} - %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- 控制台只输出 level 级别及以上的信息(onMatch)，其它直接拒绝(onMismatch) -->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 输出样式 -->
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+
+        <!-- 打印出所有信息，超过 size 大小自动压缩 -->
+        <RollingFile name="RollingFile" filename="${FILE_NAME}" filePattern="${FILE_PATTERN}">
+            <!-- 日志样式 -->
+            <PatternLayout pattern="${PATTERN}"/>
+            <!-- 日志文件大小 -->
+            <SizeBasedTriggeringPolicy size="10M"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 导入 mybatis 配置 -->
+    <import resource="mybatis-config.xml"/>
+    <!-- 导入 email 配置 -->
+    <import resource="email-config.xml"/>
+
+    <!-- 扫描 spring 注解 -->
+    <context:component-scan base-package="com.gp.cms"/>
+
+    <!-- 启动 spring mvc 注解 -->
+    <mvc:annotation-driven>
+        <!-- 配置 @ResponseBody 注解返回数据格式为 json 如：{"code": "0000", "msg": "success", "result": null} -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg name="pattern" value="yyyy-MM-dd HH:mm:ss"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 跨域配置(新版本 Chrome 为了防止 CSRF 攻击，设置了 SameSite Cookie 属性, 它有两个值：Strict、Lax。) -->
+    <!-- Strict 意为严格模式：表示 cookie 在任何情况下都不能作为第三方 cookie。 -->
+    <!-- Lax 意为宽松模式：表示 cookie 在 get 请求中可以作为第三方 cookie，但是不能携带 cookie 进行跨域 post 访问。 -->
+    <!-- 所以将 sameSite 属性设置为 null -->
+    <bean name="cookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
+        <property name="sameSite" value="null"/>
+    </bean>
+
+    <!-- 跨域配置(前后端分离) -->
+    <!-- path：api限制、origins：所有域、headers：所有请求头、methods：所有方法、credentials：允许cookie访问、max-age：预检时间 -->
+    <mvc:cors>
+        <mvc:mapping path="/api/**" allowed-origins="*" allowed-headers="*" allowed-methods="*" allow-credentials="true" max-age="3600"/>
+    </mvc:cors>
+</beans>

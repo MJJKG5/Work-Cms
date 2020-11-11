@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.cms.repository.MessageMapper">
+    <resultMap id="messageMap" type="com.gp.cms.model.Message">
+        <id column="id" property="id"/>
+        <result column="from" property="from"/>
+        <result column="to" property="to"/>
+        <result column="body" property="body"/>
+        <result column="time" property="time"/>
+    </resultMap>
+
+    <sql id="messageList">id, `from`, `to`, body, `time`</sql>
+
+    <select id="queryByList" resultMap="messageMap">
+        SELECT
+            <include refid="messageList"/>
+        FROM
+            message
+        WHERE
+            `from` = #{to}
+        OR
+            `to` = #{to}
+        ORDER BY
+            `time`
+        DEC
+        LIMIT
+            #{page.index}, #{page.pageSize}
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO message
+            (`from`, `to`, body, `time`)
+        VALUES
+            (#{message.from}, #{message.to}, #{message.body}, #{message.time})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM message WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByTo">
+        DELETE FROM message WHERE `to` = #{to}
+    </delete>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(id) FROM
+            message
+        WHERE
+            `from` = #{to}
+        OR
+            `to` = #{to}
+    </select>
+</mapper>
