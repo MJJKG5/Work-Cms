@@ -107,7 +107,7 @@ public class StudentServiceImpl implements StudentService {
             // 删除学生
             studentMapper.delete(id);
             // 删除留言
-            messageMapper.deleteByTo(student.getId());
+            messageMapper.deleteByFromOrTo(student.getId());
         }
 
         return new ResApi<>();

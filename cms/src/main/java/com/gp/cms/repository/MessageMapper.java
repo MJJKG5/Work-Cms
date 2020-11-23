@@ -35,9 +35,9 @@ public interface MessageMapper {
     /**
      * 删除
      *
-     * @param to 收件人id
+     * @param studentId 学生id
      */
-    void deleteByTo(Long to);
+    void deleteByFromOrTo(Long studentId);
 
     /**
      * 查询数量

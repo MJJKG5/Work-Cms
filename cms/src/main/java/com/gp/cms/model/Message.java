@@ -9,13 +9,21 @@ public class Message implements Serializable {
      */
     private Long id;
     /**
-     * 发件人
+     * 发件人id
      */
     private Long from;
     /**
-     * 收件人
+     * 发件人姓名
+     */
+    private String fromName;
+    /**
+     * 收件人id
      */
     private Long to;
+    /**
+     * 收件人姓名
+     */
+    private String toName;
     /**
      * 留言内容
      */
@@ -41,12 +49,28 @@ public class Message implements Serializable {
         this.from = from;
     }
 
+    public String getFromName() {
+        return fromName;
+    }
+
+    public void setFromName(String fromName) {
+        this.fromName = fromName;
+    }
+
     public Long getTo() {
         return to;
     }
 
     public void setTo(Long to) {
         this.to = to;
+    }
+
+    public String getToName() {
+        return toName;
+    }
+
+    public void setToName(String toName) {
+        this.toName = toName;
     }
 
     public String getBody() {

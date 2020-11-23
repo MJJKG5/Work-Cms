@@ -41,6 +41,14 @@ public class Student implements Serializable {
      */
     private Long classId;
     /**
+     * 班级名
+     */
+    private String className;
+    /**
+     * 院系名
+     */
+    private String departmentName;
+    /**
      * 验证码
      */
     private String code;
@@ -115,6 +123,22 @@ public class Student implements Serializable {
 
     public void setClassId(Long classId) {
         this.classId = classId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getCode() {

@@ -53,6 +53,7 @@ public class ClassServiceImpl implements ClassService {
      * @param clazz 班级
      * @return
      */
+    @Transactional
     @Override
     public ResApi<String> addClass(Class clazz) {
         Check.isNull(clazz.getName(), "name 参数为空");

@@ -11,21 +11,40 @@
         <result column="password" property="password"/>
         <result column="registerTime" property="registerTime"/>
         <result column="classId" property="classId"/>
+        <result column="className" property="className"/>
+        <result column="departmentName" property="departmentName"/>
     </resultMap>
 
     <sql id="studentList">id, `name`, sex, age, mobile, email, registerTime, classId</sql>
 
     <select id="queryByList" resultMap="studentMap">
         SELECT
-            <include refid="studentList"/>
+            s.id AS id,
+            s.name AS name,
+            s.sex AS sex,
+            s.age AS age,
+            s.mobile AS mobile,
+            s.email AS email,
+            s.registerTime AS registerTime,
+            s.classId AS classId,
+            c.name AS className,
+            d.name AS departmentName
         FROM
-            student
+            student s
+        JOIN
+            class c
+        ON s.classId = c.id
+        JOIN
+            department d
+        ON
+            c.departmentId = d.id
         <where>
+                s.id != 1
             <if test="null != name and '' != name">
-                `name` = #{name}
+                AND s.name = #{name}
             </if>
             <if test="null != classId">
-                AND classId = #{classId}
+                AND s.classId = #{classId}
             </if>
         </where>
         LIMIT
@@ -101,7 +120,7 @@
             email = #{email}
     </update>
 
-    <delete id="delete">queryByList
+    <delete id="delete">
         DELETE FROM student WHERE id = #{id}
     </delete>
 
@@ -111,8 +130,9 @@
         FROM
             student
         <where>
+                id != 1
             <if test="null != name and '' != name">
-                `name` = #{name}
+                AND `name` = #{name}
             </if>
             <if test="null != classId">
                 AND classId = #{classId}

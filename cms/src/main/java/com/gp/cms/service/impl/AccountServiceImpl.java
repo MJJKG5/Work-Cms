@@ -11,6 +11,7 @@ import com.gp.cms.repository.StudentMapper;
 import com.gp.cms.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,7 @@ public class AccountServiceImpl implements AccountService {
      * @param request 请求
      * @return
      */
+    @Transactional
     @Override
     public ResApi<String> updatePassword(Account account, HttpServletRequest request) {
         // 获取会话

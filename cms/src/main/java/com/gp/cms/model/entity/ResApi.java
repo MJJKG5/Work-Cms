@@ -22,7 +22,7 @@ public class ResApi<T> {
 
     public ResApi(T result) {
         this.code = "200";
-        this.code = "ok";
+        this.msg = "ok";
         this.result = result;
     }
 

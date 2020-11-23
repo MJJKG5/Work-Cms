@@ -9,6 +9,7 @@ import com.gp.cms.repository.DepartmentMapper;
 import com.gp.cms.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param department 院系
      * @return
      */
+    @Transactional
     @Override
     public ResApi<String> addDepartment(Department department) {
         Check.isNull(department.getName(), "name 参数为空");
@@ -70,6 +72,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param department 院系
      * @return
      */
+    @Transactional
     @Override
     public ResApi<String> updateDepartment(Department department) {
         Check.isNull(department.getId(), "id 参数为空");
@@ -93,6 +96,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @param id 院系id
      * @return
      */
+    @Transactional
     @Override
     public ResApi<String> deleteDepartment(Long id) {
         Check.isNull(id, "id 参数为空");
