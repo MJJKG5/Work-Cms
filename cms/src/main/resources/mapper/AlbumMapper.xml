@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.cms.repository.AlbumMapper">
+    <resultMap id="albumMap" type="com.gp.cms.model.Album">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="createTime" property="createTime"/>
+    </resultMap>
+
+    <sql id="albumList">id, `name`, createTime</sql>
+
+    <select id="queryByList" resultMap="albumMap">
+        SELECT
+            <include refid="albumList"/>
+        FROM
+            album
+        <where>
+            <if test="null != name and '' != name">
+                name = #{name}
+            </if>
+        </where>
+        ORDER BY
+            `createTime`
+        DESC
+        LIMIT
+            #{page.index}, #{page.pageSize}
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO album
+            (`name`)
+        VALUES
+            (#{album.name})
+    </insert>
+
+    <update id="update">
+        UPDATE
+            album
+        <set>
+            <if test="null != album.name and '' != album.name">
+                `name` = #{album.name}
+            </if>
+        </set>
+        WHERE
+            id = #{album.id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM album WHERE id = #{id}
+    </delete>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT
+            COUNT(id)
+        FROM
+            album
+        <where>
+            <if test="null != name and '' != name">
+                name = #{name}
+            </if>
+        </where>
+    </select>
+</mapper>

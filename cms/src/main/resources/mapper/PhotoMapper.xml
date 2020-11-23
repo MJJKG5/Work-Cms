@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gp.cms.repository.PhotoMapper">
+    <resultMap id="photoMap" type="com.gp.cms.model.Photo">
+        <id column="id" property="id"/>
+        <result column="proxyUrl" property="proxyUrl"/>
+        <result column="originUrl" property="originUrl"/>
+        <result column="albumId" property="albumId"/>
+    </resultMap>
+
+    <sql id="photoList">id, proxyUrl, originUrl, albumId</sql>
+
+    <select id="queryByList" resultMap="photoMap">
+        SELECT
+            <include refid="photoList"/>
+        FROM
+            photo
+        WHERE
+            albumId = #{albumId}
+        LIMIT
+            #{page.index}, #{page.pageSize}
+    </select>
+
+    <select id="queryByIds" resultMap="photoMap">
+        SELECT
+            <include refid="photoList"/>
+        FROM
+            photo
+        WHERE
+            id IN
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryByAlbumId" resultMap="photoMap">
+        SELECT
+            <include refid="photoList"/>
+        FROM
+            photo
+        WHERE
+            albumId = #{albumId}
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO photo
+            (proxyUrl, originUrl, albumId)
+        VALUES
+            (#{photo.proxyUrl}, #{photo.originUrl}, #{photo.albumId})
+    </insert>
+
+    <delete id="deleteByAlbumId">
+        DELETE FROM photo WHERE albumId = #{albumId}
+    </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM
+            photo
+        WHERE
+            id IN
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="count" resultType="java.lang.Long">
+        SELECT
+            COUNT(id)
+        FROM
+            photo
+        WHERE
+            albumId = #{albumId}
+    </select>
+</mapper>
