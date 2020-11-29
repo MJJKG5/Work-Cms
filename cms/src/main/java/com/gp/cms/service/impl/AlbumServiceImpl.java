@@ -1,10 +1,7 @@
 package com.gp.cms.service.impl;
 
-import cn.hutool.core.io.FileUtil;
 import com.gp.cms.common.utils.Check;
-import com.gp.cms.common.utils.Session;
 import com.gp.cms.model.Album;
-import com.gp.cms.model.Photo;
 import com.gp.cms.model.entity.Page;
 import com.gp.cms.model.entity.ResApi;
 import com.gp.cms.repository.AlbumMapper;
@@ -92,20 +89,20 @@ public class AlbumServiceImpl implements AlbumService {
     @Transactional
     @Override
     public ResApi<String> deleteAlbum(Long id) {
-        Check.isNull(id, "id 参数为空");
-        // 删除相册
-        albumMapper.delete(id);
-
-        // 查询照片
-        List<Photo> photos = photoMapper.queryByAlbumId(id);
-        if (photos != null && !photos.isEmpty()) {
-            // 删除照片(数据)
-            photoMapper.deleteByAlbumId(id);
-            // 删除照片(文件)
-            photos.forEach(photo -> {
-                FileUtil.del(photo.getOriginUrl());
-            });
-        }
+//        Check.isNull(id, "id 参数为空");
+//        // 删除相册
+//        albumMapper.delete(id);
+//
+//        // 查询照片
+//        List<Photo> photos = photoMapper.queryByAlbumId(id);
+//        if (photos != null && !photos.isEmpty()) {
+//            // 删除照片(数据)
+//            photoMapper.deleteByAlbumId(id);
+//            // 删除照片(文件)
+//            photos.forEach(photo -> {
+//                FileUtil.del(photo.getOriginUrl());
+//            });
+//        }
         return new ResApi<>();
     }
 }

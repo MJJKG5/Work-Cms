@@ -79,6 +79,7 @@ public class SignServiceImpl implements SignService {
         Map<String, Object> map = new HashMap<>();
         map.put("id", result.getId());
         map.put("name", result.getName());
+        map.put("className", result.getClassName());
         return new ResApi<>(map);
     }
 

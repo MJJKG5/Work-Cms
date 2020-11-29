@@ -3,7 +3,7 @@
 <Configuration status="INFO" monitorInterval="30">
     <Properties>
         <!-- 日志文件 -->
-        <Property name="FILE_NAME">/usr/local/log/cms.log</Property>
+        <Property name="FILE_NAME">/usr/local/log/cms.log</Property>-->
 <!--        <Property name="FILE_NAME">/Users/mjj/log/cms.log</Property>-->
 <!--        <Property name="FILE_NAME">D:/log/cms.log</Property>-->
         <!-- 日志压缩文件 -->

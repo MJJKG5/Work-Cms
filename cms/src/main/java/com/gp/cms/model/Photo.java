@@ -17,9 +17,9 @@ public class Photo implements Serializable {
      */
     private String originUrl;
     /**
-     * 相册id
+     * 班级id
      */
-    private Long albumId;
+    private Long classId;
 
     public Long getId() {
         return id;
@@ -45,11 +45,11 @@ public class Photo implements Serializable {
         this.originUrl = originUrl;
     }
 
-    public Long getAlbumId() {
-        return albumId;
+    public Long getClassId() {
+        return classId;
     }
 
-    public void setAlbumId(Long albumId) {
-        this.albumId = albumId;
+    public void setClassId(Long classId) {
+        this.classId = classId;
     }
 }

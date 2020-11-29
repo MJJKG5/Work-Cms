@@ -37,22 +37,22 @@ public class PhotoServiceImpl implements PhotoService {
     /**
      * 查询照片
      *
-     * @param albumId  相册id
+     * @param classId  班级id
      * @param pageNo   页码
      * @param pageSize 页大小
      * @return
      */
     @Override
-    public ResApi<Map<String, Object>> queryPhoto(Long albumId, Integer pageNo, Integer pageSize) {
-        Check.isNull(albumId, "albumId 参数为空");
+    public ResApi<Map<String, Object>> queryPhoto(Long classId, Integer pageNo, Integer pageSize) {
+        Check.isNull(classId, "classId 参数为空");
         Check.isNull(pageNo, "pageNo 参数为空");
-        Check.isNull(pageNo, "pageSize 参数为空");
+        Check.isNull(pageSize, "pageSize 参数为空");
         // 查询数量
-        Long total = photoMapper.count(albumId);
+        Long total = photoMapper.count(classId);
         // 分页
         Page page = new Page(pageNo, pageSize, total);
         // 查询照片
-        List<Photo> photos = photoMapper.queryByList(albumId, page);
+        List<Photo> photos = photoMapper.queryByList(classId, page);
 
         Map<String, Object> map = new HashMap<>();
         map.put("photos", photos);
@@ -64,14 +64,14 @@ public class PhotoServiceImpl implements PhotoService {
      * 上传照片
      *
      * @param file    文件
-     * @param albumId 相册id
+     * @param classId 班级id
      * @return
      */
     @Transactional
     @Override
-    public ResApi<String> uploadPhoto(MultipartFile file, Long albumId) {
+    public ResApi<String> uploadPhoto(MultipartFile file, Long classId) {
         Check.isNull(file, "file 参数为空");
-        Check.isNull(albumId, "albumId 参数为空");
+        Check.isNull(classId, "classId 参数为空");
         // 文件名
         String name = file.getOriginalFilename();
         if (name != null) {
@@ -96,8 +96,8 @@ public class PhotoServiceImpl implements PhotoService {
 
             // 存储照片
             Photo photo = new Photo();
-            // 相册id
-            photo.setAlbumId(albumId);
+            // 班级id
+            photo.setClassId(classId);
             // 代理地址
             photo.setProxyUrl(proxyUrl);
             // 源文件地址

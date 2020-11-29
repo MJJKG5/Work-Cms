@@ -20,16 +20,16 @@ public class PhotoController {
     /**
      * 查询照片
      *
-     * @param albumId  相册id
+     * @param classId  班级id
      * @param pageNo   页码
      * @param pageSize 页大小
      * @return
      */
     @RequestMapping(value = "photo", method = RequestMethod.GET)
-    public ResApi<Map<String, Object>> queryPhoto(@RequestParam Long albumId,
+    public ResApi<Map<String, Object>> queryPhoto(@RequestParam Long classId,
                                                   @RequestParam Integer pageNo,
                                                   @RequestParam Integer pageSize) {
-        return photoService.queryPhoto(albumId, pageNo, pageSize);
+        return photoService.queryPhoto(classId, pageNo, pageSize);
     }
 
     /**

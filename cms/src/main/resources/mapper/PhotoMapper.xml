@@ -5,10 +5,10 @@
         <id column="id" property="id"/>
         <result column="proxyUrl" property="proxyUrl"/>
         <result column="originUrl" property="originUrl"/>
-        <result column="albumId" property="albumId"/>
+        <result column="classId" property="classId"/>
     </resultMap>
 
-    <sql id="photoList">id, proxyUrl, originUrl, albumId</sql>
+    <sql id="photoList">id, proxyUrl, originUrl, classId</sql>
 
     <select id="queryByList" resultMap="photoMap">
         SELECT
@@ -16,7 +16,7 @@
         FROM
             photo
         WHERE
-            albumId = #{albumId}
+            classId = #{classId}
         LIMIT
             #{page.index}, #{page.pageSize}
     </select>
@@ -33,24 +33,24 @@
         </foreach>
     </select>
 
-    <select id="queryByAlbumId" resultMap="photoMap">
+    <select id="queryByClassId" resultMap="photoMap">
         SELECT
             <include refid="photoList"/>
         FROM
             photo
         WHERE
-            albumId = #{albumId}
+            classId = #{classId}
     </select>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO photo
-            (proxyUrl, originUrl, albumId)
+            (proxyUrl, originUrl, classId)
         VALUES
-            (#{photo.proxyUrl}, #{photo.originUrl}, #{photo.albumId})
+            (#{photo.proxyUrl}, #{photo.originUrl}, #{photo.classId})
     </insert>
 
-    <delete id="deleteByAlbumId">
-        DELETE FROM photo WHERE albumId = #{albumId}
+    <delete id="deleteByClassId">
+        DELETE FROM photo WHERE classId = #{classId}
     </delete>
 
     <delete id="deleteByIds">
@@ -69,6 +69,6 @@
         FROM
             photo
         WHERE
-            albumId = #{albumId}
+            classId = #{classId}
     </select>
 </mapper>

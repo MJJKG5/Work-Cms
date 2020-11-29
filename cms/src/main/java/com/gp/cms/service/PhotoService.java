@@ -9,12 +9,12 @@ public interface PhotoService {
     /**
      * 查询照片
      *
-     * @param albumId  相册id
+     * @param classId  班级id
      * @param pageNo   页码
      * @param pageSize 页大小
      * @return
      */
-    ResApi<Map<String, Object>> queryPhoto(Long albumId, Integer pageNo, Integer pageSize);
+    ResApi<Map<String, Object>> queryPhoto(Long classId, Integer pageNo, Integer pageSize);
 
     /**
      * 上传照片

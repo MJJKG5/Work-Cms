@@ -12,11 +12,11 @@ public interface PhotoMapper {
     /**
      * 查询
      *
-     * @param albumId 相册id
+     * @param classId 班级id
      * @param page    分页
      * @return
      */
-    List<Photo> queryByList(@Param("albumId") Long albumId, @Param("page") Page page);
+    List<Photo> queryByList(@Param("classId") Long classId, @Param("page") Page page);
 
     /**
      * 查询
@@ -29,10 +29,10 @@ public interface PhotoMapper {
     /**
      * 查询
      *
-     * @param albumId 相册id
+     * @param classId 班级id
      * @return
      */
-    List<Photo> queryByAlbumId(Long albumId);
+    List<Photo> queryByClassId(Long classId);
 
     /**
      * 添加
@@ -44,9 +44,9 @@ public interface PhotoMapper {
     /**
      * 删除
      *
-     * @param albumId 相册id
+     * @param classId 班级id
      */
-    void deleteByAlbumId(Long albumId);
+    void deleteByClassId(Long classId);
 
     /**
      * 删除
@@ -58,8 +58,8 @@ public interface PhotoMapper {
     /**
      * 查询数量
      *
-     * @param albumId 相册id
+     * @param classId 班级id
      * @return
      */
-    Long count(Long albumId);
+    Long count(Long classId);
 }
