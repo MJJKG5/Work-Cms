@@ -63,24 +63,11 @@
 
     <select id="queryByEmail" resultType="com.gp.cms.model.Student">
         SELECT
-            s.id AS id,
-            s.name AS name,
-            s.sex AS sex,
-            s.age AS age,
-            s.mobile AS mobile,
-            s.email AS email,
-            s.password AS password,
-            s.registerTime AS registerTime,
-            s.classId AS classId,
-            c.name AS className
+            id, `name`, sex, age, mobile, email, password, registerTime, classId
         FROM
-            student s
-        JOIN
-            class c
-        ON
-            s.classId = c.id
+            student
         WHERE
-            s.email = #{email}
+            email = #{email}
     </select>
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
