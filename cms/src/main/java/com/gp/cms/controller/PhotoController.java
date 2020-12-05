@@ -36,12 +36,12 @@ public class PhotoController {
      * 上传照片
      *
      * @param file    文件
-     * @param albumId 相册id
+     * @param classId 班级id
      * @return
      */
     @RequestMapping(value = "photo", method = RequestMethod.POST)
-    public ResApi<String> uploadPhoto(MultipartFile file, @RequestParam Long albumId) {
-        return photoService.uploadPhoto(file, albumId);
+    public ResApi<String> uploadPhoto(MultipartFile file, @RequestParam Long classId) {
+        return photoService.uploadPhoto(file, classId);
     }
 
     /**
